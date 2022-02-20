@@ -21,7 +21,7 @@ resource "aws_instance" "ec2_public" {
 
 resource "aws_ebs_volume" "my_vol" {
   availability_zone = aws_instance.os1.availability_zone
-  size              = 10
+  size              = 20
 }
 
 resource "aws_volume_attachment" "rhel_ebs" {
