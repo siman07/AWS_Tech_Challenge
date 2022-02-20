@@ -16,3 +16,12 @@ module "ec2" {
   sg_priv_id = module.networking.sg_priv_id
   key_name   = module.ssh-key.key_name
 }
+
+resource "aws_s3_bucket" "my_bucket" {
+  bucket = var.my_app_s3_bucket
+  acl    = "private"
+  tags = {
+    Name        = "My bucket"
+    Environment = terraform.workspace
+  }
+}

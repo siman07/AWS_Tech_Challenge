@@ -9,3 +9,7 @@ variable "region" {
   default     = "us-east-1"
   type        = string
 }
+variable "my_app_s3_bucket" {
+  type    = string
+  default = "terraform-challenge"
+}
