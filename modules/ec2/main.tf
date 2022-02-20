@@ -21,8 +21,18 @@ resource "aws_instance" "ec2_public" {
     "Name" = "${var.namespace}-EC2-PUBLIC"
   }
 
-  # Copies the ssh key file to home dir
-  provisioner "file" {
+resource "aws_ebs_volume" "my_vol" {
+  availability_zone = aws_instance.os1.availability_zone
+  size              = 10
+}
+
+resource "aws_volume_attachment" "rhel_ebs" {
+  device_name = "/dev/sdh"
+  volume_id   = aws_ebs_volume.my_vol.id
+  instance_id = aws_instance.RHEL-8.id
+}
+
+   provisioner "file" {
     source      = "./${var.key_name}.pem"
     destination = "/home/ec2-user/${var.key_name}.pem"
 
@@ -34,8 +44,7 @@ resource "aws_instance" "ec2_public" {
     }
   }
 
-  //chmod key 400 on EC2 instance
-  provisioner "remote-exec" {
+   provisioner "remote-exec" {
     inline = ["chmod 400 ~/${var.key_name}.pem"]
 
     connection {
@@ -49,7 +58,6 @@ resource "aws_instance" "ec2_public" {
 
 }
 
-// Configure the EC2 instance in a private subnet
 resource "aws_instance" "ec2_private" {
   ami                         = data.aws_ami.RHEL-8.id
   associate_public_ip_address = false
