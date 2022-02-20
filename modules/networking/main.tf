@@ -64,7 +64,7 @@ resource "aws_security_group" "allow_ssh_priv" {
   }
 }
 resource "aws_internet_gateway" "vpc-gw" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = aws_vpc.vpc.id
 
   tags = {
     Name = "vpc"
