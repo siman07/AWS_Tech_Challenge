@@ -1,7 +1,4 @@
 
-// Generate the SSH keypair that we’ll use to configure the EC2 instance. 
-// After that, write the private key to a local file and upload the public key to AWS
-
 resource "tls_private_key" "key" {
   algorithm = "RSA"
 }

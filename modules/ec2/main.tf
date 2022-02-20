@@ -1,4 +1,3 @@
-// Create aws_ami filter to pick up the ami available in your region
 data "aws_ami" "RHEL-8" {
   most_recent = true
 
@@ -8,7 +7,6 @@ data "aws_ami" "RHEL-8" {
   }
 }
 
-// Configure the EC2 instance in a public subnet
 resource "aws_instance" "ec2_public" {
   ami                         = data.aws_ami.RHEL-8.id
   associate_public_ip_address = true

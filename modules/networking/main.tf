@@ -14,7 +14,6 @@ module "vpc" {
   single_nat_gateway               = false
 }
 
-// SG to allow SSH connections from anywhere
 resource "aws_security_group" "allow_ssh_pub" {
   name        = "${var.namespace}-allow_ssh"
   description = "Allow SSH inbound traffic"
@@ -40,7 +39,6 @@ resource "aws_security_group" "allow_ssh_pub" {
   }
 }
 
-// SG to onlly allow SSH connections from VPC public subnets
 resource "aws_security_group" "allow_ssh_priv" {
   name        = "${var.namespace}-allow_ssh_priv"
   description = "Allow SSH inbound traffic"
@@ -65,7 +63,6 @@ resource "aws_security_group" "allow_ssh_priv" {
     Name = "${var.namespace}-allow_ssh_priv"
   }
 }
-# Creating Internet Gateway in AWS VPC
 resource "aws_internet_gateway" "vpc-gw" {
   vpc_id = aws_vpc.main.id
 
